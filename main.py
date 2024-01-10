@@ -92,6 +92,7 @@ class Jarvis:
             speak("I am an open source project which then upgraded by Ibad moin")
         
         elif 'open youtube' in query:
+            speak("openning youtube")
             webbrowser.get().open_new_tab('http://www.youtube.com')
         
         elif 'cpu' in query:
@@ -105,6 +106,7 @@ class Jarvis:
             screenshot()
         
         elif 'open google' in query:
+            speak("Openning google")
             webbrowser.get().open_new_tab('https://www.google.com')
         
         elif 'open chat gpt' in query:
