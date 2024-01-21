@@ -12,6 +12,7 @@ from helpers import *
 from youtube import youtube
 import getpass
 
+
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[0].id)
@@ -55,14 +56,27 @@ class Jarvis:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.ehlo()
         server.starttls()
-        server.login()
+        server.login("ibadmoin@gmail.com","")
         server.sendmail('email',to,content)
         server.close()
     
     def execute_query(self, query):
 
+
+
         if 'current weather' in query:
             weather()
+
+        if "hello" in query:
+            speak("Hello sir, how are you ?")
+        if "i am fine" in query:
+            speak("that's great, sir")
+        if "how are you" in query:
+            speak("Perfect, sir")
+        if "thanks" in query:
+            speak("you are welcome, sir")
+        if "good" in query:
+            speak("Thank you sir!")
 
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
@@ -97,6 +111,8 @@ class Jarvis:
         
         elif 'cpu' in query:
             cpu()
+        elif 'cpu usage' in query:
+            cpu()
         
         elif 'joke' in query:
             joke()
@@ -110,19 +126,33 @@ class Jarvis:
             webbrowser.get().open_new_tab('https://www.google.com')
         
         elif 'open chat gpt' in query:
+            speak("Opening ChatGPT")
             webbrowser.get().open_new_tab('https://chat.openai.com')
+        
+        
+        elif 'open whatsapp' in query:
+            speak("Opening WhatsApp")
+            webbrowser.get().open_new_tab('https://web.whatsapp.com')
+        
+        elif 'open github' in query:
+            speak("Opening Github")
+            webbrowser.get().open_new_tab('https://www.github.com')
         
         elif 'search youtube' in query:
             speak("What do you want to search on youtube?")
             youtube(takeCommand())
         
         elif "the time" in query:
-            strTime = datetime.now().strftime("%H:%M:%S")
+            strTime = datetime.now().strftime("%I:%M %p")
             speak(f'Sir, the time is {strTime}')
 
         elif 'search' in query:
             speak("What do you want to search for?")
             search = takeCommand()
+            search = search.replace("jarvis",'')
+            search = search.replace("friday",'')
+            search = search.replace("google",'')
+            search = search.replace("search google",'')
             url = 'https://google.com/search?q=' + search
             webbrowser.get('chrome').open_new_tab(url)
             speak("Here is what I found for, "+ search)
@@ -130,6 +160,11 @@ class Jarvis:
         elif 'location' in query:
             speak("what is the location")
             location = takeCommand()
+            location = location.replace("friday","")
+            location = location.replace("jarvis","")
+            location = location.replace("serach location","")
+            location = location.replace("location","")
+            location = location.replace(" ","")
             url = 'https://google.nl/maps/place/' + location + '/&amp;'
             webbrowser.get('chrome').open_new_tab(url)
             speak('Here is the location ' + location)
@@ -155,9 +190,15 @@ class Jarvis:
         elif 'stands for' in query:
             speak('J.A.R.V.I.S stands for JUST A RATHER VERY INTELLIGENT SYSTEM')
             
-        elif 'shutdown' in query:
+        elif 'shutdown this system' in query:
             if platform == "win32":
-                os.system('shutdown /p /f')
+                speak("Sir do you really want to shut down this system")
+                confirm = takeCommand().lower()
+                if 'yes' in confirm:
+                    
+                    os.system('shutdown /p /f')
+                else:
+                    speak("Your system will remain up and running")
             elif platform == "linux" or platform == "linux2" or "darwin":
                 os.system('poweroff')
 
@@ -185,9 +226,6 @@ class Jarvis:
         elif 'dictionary' in query:
             speak("What you want to search in your intelligent dictionary?")
             translate(takeCommand())
-            
-
-            # add news, github, music, etc
 def wakeUpJARVIS():
     bot_ = Jarvis()
     bot_.wishMe()
@@ -195,8 +233,12 @@ def wakeUpJARVIS():
         query = takeCommand().lower()
         bot_.execute_query(query)
 
+
+
+
 if __name__ == '__main__':
     wakeUpJARVIS()
+   
         
 
 

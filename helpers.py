@@ -52,7 +52,7 @@ def takeCommand() -> str:
         print("Listening...")
 
         # Adjust settings for recognizing speech
-        r.pause_threshold = 1
+        r.pause_threshold =1
         r.energy_threshold = 494
         r.adjust_for_ambient_noise(source, duration=1.5)
 
